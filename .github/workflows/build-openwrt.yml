@@ -29,7 +29,7 @@ env:
   CONFIG_FILE: .config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
-  SSH_ACTIONS: true
+  SSH_ACTIONS: false
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: false
@@ -72,7 +72,11 @@ jobs:
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
-
+    
+    - name: add run commands to rc.local
+      run: |
+        sed -i '2 a ln -s /etc/modules-boot.d/modules.d/18-phy-broadcom /etc/modules-boot.d' openwrt/package/base-files/files/etc/rc.local
+      
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
 
