@@ -14,7 +14,7 @@ on:
     types: published
   push:
     branches:
-      - hp-h5740
+      - hp-t5740
     paths:
       - '.config'
 #  schedule:
